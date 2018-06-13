@@ -1,0 +1,17 @@
+database:
+  connection: mysql+pymysql://root:root@localhost/research
+  # connection: mysql+pymysql://root:1234@localhost:3306/p2ci
+  # mysql+pymysql://root:aabb1122@139.196.228.246:3307/p2ci?charset=utf8
+  debug: false
+logger:
+  level: 1
+flask:
+  debug: true
+# crowd:
+#   host: http://10.202.101.25:8095
+
+# address:
+#   address: https://p2ci-staging.p2shop.cn/
+
+# slack:
+#   channel: testrelease_prd
