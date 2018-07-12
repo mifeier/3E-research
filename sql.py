@@ -25,39 +25,32 @@ class Project(db.Model):
     Id=db.Column(db.Integer,primary_key=True)
     pro_id=db.Column(db.Integer)
     pro_name=db.Column(db.String(128))
-    page_id=db.Column(db.Integer)
     pro_detail=db.Column(db.String(128))
-
+    page_id=db.Column(db.Integer)
+    
 class Page(db.Model):
     __tablename__='page'
-    Id=db.Column(db.Integer,primary_key=True)
+    Id = db.Column(db.Integer,primary_key=True)
     page_id=db.Column(db.Integer)
     page_name=db.Column(db.String(128))
-    func_id=db.Column(db.Integer)
     page_detail=db.Column(db.String(128))
+    func_id=db.Column(db.Integer)
 
 class Function(db.Model):
     __tablename__='functions'
-    Id=db.Column(db.Integer,primary_key=True)
+    Id = db.Column(db.Integer,primary_key=True)
     func_id=db.Column(db.Integer)
     func_name=db.Column(db.String(128))
-    func_detail=db.Column(db.String(128))
+    func_detail=db.Column(db.Integer)
+    designer_id=db.Column(db.Integer)
 
 class Designer(db.Model):
     __tablename__='designer'
-    Id=db.Column(db.Integer,primary_key=True)
-    role_id=db.Column(db.Integer)
+    Id = db.Column(db.Integer,primary_key=True)
+    designer_id=db.Column(db.Integer)
     content=db.Column(db.String(128))
+    role_id=db.Column(db.Integer)
 
-def InsertProject(obj):
-    name = (obj.pro_name).lower()
-    result=Project.query.all()
-    for item in result:
-        Name = item.pro_name.lower()
-        if Name=name:
-            return 'exist'
-            break
-    db.session.add(obj)
-    db.session.commit()
-    return Project.query.get(obj.Id)
+    
+
 
