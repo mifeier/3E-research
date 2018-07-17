@@ -14,7 +14,7 @@ page_fields = {
 
 errors={
     'ProjectAlreadyExistsError':{
-        'messages':"A user with that username already exists.",
+        'messages':"A page with that pagename already exists.",
         'status':409,
     },
     'ResourceDoesNotEsist':{
@@ -28,6 +28,7 @@ parser=reqparse.RequestParser()
 parser.add_argument('page_id',required=True)
 parser.add_argument('page_name',required=True)
 parser.add_argument('page_detail',required=True)
+#parser.add_argument('func_id',required=True)
 
 class Common:
     def returnTrueJson(self,data,msg="请求成功"):
@@ -44,8 +45,8 @@ class Common:
         })
 #对某个project的操作
 class SinglePage(Resource):
-    #@marshal_with(project_fields)
-    #查询一个project
+    #@marshal_with(page_fields)
+    #查询一个page
     def get(self,page_Id):       
         page=Page.query.filter_by(page_id=page_Id).first()      
         if (page is None):
@@ -53,10 +54,62 @@ class SinglePage(Resource):
         else:
             return Common.returnTrueJson(Common,marshal(page,page_fields))
 
+    #删除一个page
+    def delete(self,page_Id):
+        deleteRow=Page.query.filter_by(page_id=page_Id).delete()
+        db.session.commit()
+        if (deleteRow):
+            return PageList.get(PageList)
+        else:
+            return Common.returnFalseJson(Common)
+    #修改一个page
+    def put(self,page_Id):
+        args=parser.parse_args()
+        page_id=args['page_id']
+        page_name=args['page_name']
+        page_detail=args['page_detail']
+        #func_id=args['func_id']
+        try:
+            page=Page.query.filter_by(page_id=page_Id).first()
+            page.page_id=page_id
+            page.page_name=page_name
+            page.page_detail=page_detail
+            #page.func_id=func_id
+            db.session.commit()
+            page_Id=page.page_id
+            data=Page.query.filter_by(page_id=page_Id).first()
+            return Common.returnTrueJson(Common,marshal(data,page_fields))
+        except:
+            db.session.rollback()
+            db.session.flush()
+            abort(409,msg="修改失败",data=None,status=0)
 
 
-#对page list的操作
+#对pagelist的操作
 class PageList(Resource):
-    #查询所有的project
+    #查询所有的page
     def get(self):
         return Common.returnTrueJson(Common,marshal(Page.query.all(),page_fields))
+    
+    #添加一个page
+    def post(self):
+        args=parser.parse_args()
+        page_id=args['page_id']
+        page_name=args['page_name']
+        page_detail=args['page_detail']
+        page=Page(page_id=page_id,page_name=page_name,page_detail=page_detail)    
+        try:
+            db.session.add(page)
+            db.session.commit()
+        except:
+            db.session.rollback()   
+            db.session.flush()
+        if (page.page_id is None):           
+            return Common.returnFalseJson(Common,msg="添加失败")
+        else:
+            return SinglePage.get(Page,page.page_id)  
+
+#对page添加function
+class AddFuncToPage(Resource):
+    def get(self,page_Id):
+        

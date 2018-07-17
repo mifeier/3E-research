@@ -19,7 +19,6 @@ page_id_fields = {
 }
 
 page_fields = {
-    'page_id':fields.Integer,
     'page_name':fields.String
 }
 
@@ -124,17 +123,20 @@ class ProjectList(Resource):
 #对project添加页面
 class AddPageToProject(Resource):
     def get(self,pro_Id):
-        projects = Project.query(Project.page_id).filter(Project.pro_id == pro_Id).all()
-        #projectobj=Obj.returnTrueJson(Obj,marshal(project,page_id_fields))
-        for project in projects:
-            print (project)
-        #projeceobj_list=json.loads(projectobj)
-        #projectobj=Obj.returnTrueJson(Obj,marshal(project,page_id_fields))
-        # page=Page.query.all()
-        # pageobj=Obj.returnTrueJson(Obj,marshal(page,page_fields))
-        #return projectobj
 
-        #page=Page.query(Page.page_name,Page.page_id).filter(Page.page_id != project.pro_id).all()
+        projects = db.session.query(Project.pro_name).all()
+        #project=projects[0]
+        #pro=project.page_id  
+
+        return Obj.returnTrueJson(Obj,marshal(projects,project_fields))
+        # print (type(projects_page_id))
+        # return projects_page_id
+       
+
+
+        # return Obj.returnTrueJson(Obj,marshal(project_page,page_fields))
+        # pagename=Page.query.filter(Page.page_id not in project_page)
+        # pageobj=Obj.returnTrueJson(Obj,marshal(pagename,page_fields))
         #return Common.returnTrueJson(Common,marshal(page,page_fields))  
         
               
