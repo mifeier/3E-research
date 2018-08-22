@@ -1,0 +1,24 @@
+
+1001: "this pro_id and flag has no message"
+1002: "there are no page's message"
+1003: "project detail is null"
+1004: "update the project message failed"
+1005: "delete the project failed"
+1006: "delete the project's pages faield"
+
+2001: "this page_id and flag has no message"
+2002: "update the page message failed"
+2003: "add the page message failed"
+2004: "there are no the flag=1 funcions's message"
+2005: "add the page's functions message faield,save failed"
+2006: "delete the page's functions message faield,save faield"
+
+3001: "this func_id and flag has no message"
+3002: "update the function's message failed"
+3003: "delete the functions and flag=1 failed"
+3004: "there are no the flag=1 desinger's's message"
+3005: "add the functions and flag=1 faield,save faield"
+3006: "this func_id and flag=1 have all designers message"
+3007: "delete the func's designers message faield"
+
+

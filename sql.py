@@ -13,7 +13,7 @@ class Role(db.Model):
     __tablename__ = 'role'
     Id=db.Column(db.Integer)
     role_id = db.Column(db.Integer, primary_key=True)
-    role_ame = db.Column(db.String(128))
+    role_name = db.Column(db.String(128))
 
 class User(db.Model):
     __tablename__='user'
@@ -27,6 +27,7 @@ class Project(db.Model):
     pro_name=db.Column(db.String(128))
     pro_detail=db.Column(db.String(128))
     page_id=db.Column(db.Integer)
+    flag=db.Column(None)
     
 class Page(db.Model):
     __tablename__='page'
@@ -35,6 +36,7 @@ class Page(db.Model):
     page_name=db.Column(db.String(128))
     page_detail=db.Column(db.String(128))
     func_id=db.Column(db.Integer)
+    flag = db.Column(None)
 
 class Function(db.Model):
     __tablename__='functions'
@@ -43,6 +45,7 @@ class Function(db.Model):
     func_name=db.Column(db.String(128))
     func_detail=db.Column(db.Integer)
     designer_id=db.Column(db.Integer)
+    flag = db.Column(None)
 
 class Designer(db.Model):
     __tablename__='designer'
@@ -52,5 +55,4 @@ class Designer(db.Model):
     role_id=db.Column(db.Integer)
 
     
-
 
